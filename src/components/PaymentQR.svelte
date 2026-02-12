@@ -34,7 +34,7 @@
   </div>
 
   <!-- QR Code -->
-  <div class="bg-white rounded-2xl p-4 shadow-2xl shadow-kaspa-teal/10">
+  <div class="bg-white rounded-2xl p-4 qr-glow">
     <canvas bind:this={canvas}></canvas>
   </div>
 

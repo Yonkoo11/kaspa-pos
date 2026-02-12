@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { kasPrice, startPayment, refreshPrice, merchantAddress, error } from '../stores/pos'
+  import { kasPrice, startPayment, refreshPrice, merchantAddress, error, payments } from '../stores/pos'
   import { usdToKas, kasToUsd } from '../lib/kaspa/price'
   import { onMount } from 'svelte'
+
+  export let onShowHistory: () => void = () => {}
 
   let inputMode: 'usd' | 'kas' = 'usd'
   let displayValue = ''
@@ -64,6 +66,18 @@
       </div>
       <span class="text-white/80 font-medium text-sm tracking-wide">KaspaPOS</span>
     </div>
+    <div class="flex items-center gap-1">
+    {#if $payments.length > 0}
+    <button
+      onclick={onShowHistory}
+      class="text-white/40 hover:text-white/80 transition-colors p-2"
+      aria-label="History"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </button>
+    {/if}
     <button
       onclick={() => showSettings = !showSettings}
       class="text-white/40 hover:text-white/80 transition-colors p-2"
@@ -74,6 +88,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
     </button>
+    </div>
   </div>
 
   <!-- Settings Panel -->

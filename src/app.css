@@ -10,11 +10,6 @@
   --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
 }
 
-@font-face {
-  font-family: 'JetBrains Mono';
-  src: url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-}
-
 html, body {
   margin: 0;
   padding: 0;
@@ -30,4 +25,21 @@ html, body {
 #app {
   width: 100vw;
   height: 100vh;
+}
+
+/* QR pulse glow */
+@keyframes qr-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(73, 234, 203, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(73, 234, 203, 0.25); }
+}
+
+.qr-glow {
+  animation: qr-pulse 2s ease-in-out infinite;
+}
+
+/* Keypad button press feedback */
+@keyframes key-press {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
 }
