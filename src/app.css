@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-kaspa-teal: #49eacb;
+  --color-kaspa-dark: #0a0e17;
+  --color-kaspa-surface: #111827;
+  --color-kaspa-border: #1e293b;
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+  --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--color-kaspa-dark);
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+}
