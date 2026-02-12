@@ -129,21 +129,21 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
       </svg>
     </button>
-    <div class="font-mono tabular-nums min-h-[4.5rem] flex items-baseline">
+    <div class="font-mono tabular-nums min-h-[5rem] flex items-baseline">
       {#if inputMode === 'usd'}
-        <span class="text-l4 text-[48px] font-light leading-none">$</span><span class="text-l1 text-[64px] font-light leading-none tracking-tight">{displayValue || '0'}</span>
+        <span class="text-l4 text-[56px] font-extralight leading-none tracking-tight">$</span><span class="text-l1 text-[72px] font-extralight leading-none tracking-tighter">{displayValue || '0'}</span>
       {:else}
-        <span class="text-l1 text-[64px] font-light leading-none tracking-tight">{displayValue || '0'}</span>
-        <span class="text-l4 text-xl ml-2 font-normal">KAS</span>
+        <span class="text-l1 text-[72px] font-extralight leading-none tracking-tighter">{displayValue || '0'}</span>
+        <span class="text-l4 text-lg ml-3 font-normal">KAS</span>
       {/if}
     </div>
-    <div class="text-l3 text-sm mt-2 font-mono tabular-nums">
+    <div class="text-l3 text-sm mt-3 font-mono tabular-nums">
       {#if inputMode === 'usd'}
         {kasAmount.toFixed(2)} KAS
       {:else}
         ${usdAmount.toFixed(2)} USD
       {/if}
-      <span class="text-l5 ml-2">@ ${$kasPrice.toFixed(4)}</span>
+      <span class="text-l4 ml-2">@ ${$kasPrice.toFixed(4)}</span>
     </div>
   </div>
 
@@ -155,14 +155,14 @@
 
   <!-- Keypad -->
   <div class="flex-1 px-5 pb-5 flex flex-col gap-2">
-    <div class="grid grid-cols-3 gap-1.5 flex-1">
+    <div class="grid grid-cols-3 gap-1.5 flex-1 glass rounded-[--radius-md] p-2">
       {#each keys as key}
         <button
           onclick={() => pressKey(key)}
           class="rounded-[--radius-sm] text-xl transition-[transform,background-color] duration-100 active:scale-[0.97]
             {key === 'CLR'
-              ? 'text-l4 hover:bg-white/[0.04] text-sm tracking-[0.05em] font-medium'
-              : 'text-l1 hover:bg-white/[0.04] font-light'
+              ? 'text-l4 hover:bg-white/[0.06] text-sm tracking-[0.05em] font-medium'
+              : 'text-l2 hover:bg-white/[0.06]'
             }"
         >
           {key}
@@ -173,7 +173,7 @@
     <!-- Backspace -->
     <button
       onclick={backspace}
-      class="w-full py-3 rounded-[--radius-sm] text-l4 hover:text-l3 hover:bg-white/[0.03] transition-[background-color,color] duration-150 text-sm flex items-center justify-center gap-1.5"
+      class="w-full py-3 rounded-[--radius-sm] text-l4 hover:text-l3 hover:bg-white/[0.04] transition-[background-color,color] duration-150 text-sm flex items-center justify-center gap-1.5"
     >
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l7-7 11 0v14H10L3 12z" />
@@ -188,7 +188,7 @@
       class="w-full py-4 rounded-[--radius-md] font-semibold text-lg transition-[transform,opacity] duration-150 active:scale-[0.97]
         {kasAmount > 0 && $merchantAddress && !loading
           ? 'bg-kaspa-teal text-kaspa-dark shadow-[0_0_30px_rgba(73,234,203,0.15)]'
-          : 'bg-white/[0.04] text-l4 cursor-not-allowed'
+          : 'glass text-l4 cursor-not-allowed'
         }"
     >
       {#if loading}
