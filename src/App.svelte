@@ -26,7 +26,7 @@
   </div>
 
   <!-- Content -->
-  <div class="w-full max-w-md h-full max-h-[900px] flex flex-col relative z-10">
+  <main class="w-full max-w-md h-full max-h-[900px] flex flex-col relative z-10">
     {#if $state === 'idle'}
       <AmountEntry onShowHistory={() => showHistory = true} />
     {:else if $state === 'waiting'}
@@ -44,5 +44,5 @@
         <History onClose={() => showHistory = false} />
       </div>
     {/if}
-  </div>
+  </main>
 </div>

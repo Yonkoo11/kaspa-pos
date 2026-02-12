@@ -20,7 +20,7 @@
   <!-- Header -->
   <div class="flex items-center justify-between px-5 pt-5 pb-4">
     <h2 class="text-l1 font-medium text-sm">Transaction History</h2>
-    <button onclick={onClose} class="text-l4 hover:text-l2 transition-[color] duration-150 p-1.5" aria-label="Close">
+    <button onclick={onClose} class="text-l4 hover:text-l2 transition-[color] duration-150 p-2.5" aria-label="Close">
       <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>

@@ -80,7 +80,7 @@
     {#if $payments.length > 0}
     <button
       onclick={onShowHistory}
-      class="text-l4 hover:text-l2 transition-[color] duration-150 p-2"
+      class="text-l4 hover:text-l2 transition-[color] duration-150 p-2.5"
       aria-label="Transaction history"
     >
       <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,7 +90,7 @@
     {/if}
     <button
       onclick={() => { showSettings = !showSettings; if (showSettings) addressInput = $merchantAddress }}
-      class="text-l4 hover:text-l2 transition-[color] duration-150 p-2"
+      class="text-l4 hover:text-l2 transition-[color] duration-150 p-2.5"
       aria-label="Settings"
     >
       <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,7 +155,7 @@
 
   <!-- Keypad -->
   <div class="flex-1 px-5 pb-5 flex flex-col gap-2">
-    <div class="grid grid-cols-3 gap-1.5 flex-1 glass rounded-[--radius-md] p-2">
+    <div class="grid grid-cols-3 gap-2 flex-1 glass rounded-[--radius-md] p-2">
       {#each keys as key}
         <button
           onclick={() => pressKey(key)}
@@ -173,7 +173,7 @@
     <!-- Backspace -->
     <button
       onclick={backspace}
-      class="w-full py-3 rounded-[--radius-sm] text-l4 hover:text-l3 hover:bg-white/[0.04] transition-[background-color,color] duration-150 text-sm flex items-center justify-center gap-1.5"
+      class="w-full py-3 rounded-[--radius-sm] text-l4 hover:text-l3 hover:bg-white/[0.04] transition-[background-color,color] duration-150 text-sm flex items-center justify-center gap-2"
     >
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l7-7 11 0v14H10L3 12z" />
