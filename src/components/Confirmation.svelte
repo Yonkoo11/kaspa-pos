@@ -76,7 +76,7 @@
     class:opacity-100={showBars}
     class:opacity-0={!showBars}
   >
-    <div class="text-l4 text-[10px] uppercase tracking-[0.08em] mb-4">vs. traditional</div>
+    <div class="text-l4 text-[11px] uppercase tracking-[0.08em] mb-4">vs. traditional</div>
     {#each chains as chain}
       <div class="flex items-center py-2.5 border-t border-white/[0.04]">
         <div class="w-20 text-[13px] shrink-0 {chain.accent ? 'text-kaspa-teal font-medium' : 'text-l3'}">{chain.name}</div>

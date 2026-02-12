@@ -27,11 +27,10 @@
   <!-- Amount -->
   <div class="text-center">
     <div class="text-l4 text-[11px] uppercase tracking-[0.08em] font-medium mb-2">Payment Request</div>
-    <div class="text-[48px] font-light text-l1 font-mono tabular-nums leading-none tracking-tight">
-      {$amountKAS.toFixed(2)}
+    <div class="text-[48px] font-light text-l1 font-mono tabular-nums leading-none tracking-tight flex items-baseline justify-center">
+      {$amountKAS.toFixed(2)}<span class="text-kaspa-teal text-lg ml-2 font-normal">KAS</span>
     </div>
-    <div class="text-kaspa-teal text-sm font-medium mt-1">KAS</div>
-    <div class="text-l4 text-sm mt-1 font-mono">${$amountUSD.toFixed(2)} USD</div>
+    <div class="text-l4 text-sm mt-1.5 font-mono">${$amountUSD.toFixed(2)} USD</div>
   </div>
 
   <!-- QR Code -->
