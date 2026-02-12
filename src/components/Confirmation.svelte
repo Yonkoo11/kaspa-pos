@@ -27,9 +27,9 @@
   })
 </script>
 
-<div class="flex flex-col items-center justify-center h-full px-4 py-6 overflow-hidden">
+<div class="flex flex-col items-center justify-center h-full px-4 py-5 overflow-hidden">
   <!-- Success Animation -->
-  <div class="relative mb-6">
+  <div class="relative mb-4">
     <!-- Glow ring -->
     <div
       class="absolute inset-0 rounded-full bg-success/20 blur-xl transition-[transform,opacity] duration-700"
@@ -40,11 +40,11 @@
 
     <!-- Checkmark circle -->
     <div
-      class="relative w-24 h-24 rounded-full bg-success/20 border-2 border-success flex items-center justify-center transition-[transform,opacity] duration-500"
+      class="relative w-20 h-20 rounded-full bg-success/20 border-2 border-success flex items-center justify-center transition-[transform,opacity] duration-500"
       class:scale-100={showContent}
       class:scale-0={!showContent}
     >
-      <svg class="w-12 h-12 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-10 h-10 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -58,29 +58,29 @@
   </div>
 
   <!-- Confirmed Text -->
-  <div class="text-center mb-2 transition-[transform,opacity] duration-500 delay-200" class:opacity-100={showContent} class:opacity-0={!showContent} class:translate-y-0={showContent} class:translate-y-4={!showContent}>
-    <div class="text-success text-sm font-medium uppercase tracking-wider">Payment Confirmed</div>
-    <div class="text-4xl font-bold text-white font-mono tabular-nums mt-1">
+  <div class="text-center mb-1 transition-[transform,opacity] duration-500 delay-200" class:opacity-100={showContent} class:opacity-0={!showContent} class:translate-y-0={showContent} class:translate-y-4={!showContent}>
+    <div class="text-success text-xs font-medium uppercase tracking-wider">Payment Confirmed</div>
+    <div class="text-3xl font-bold text-white font-mono tabular-nums mt-1">
       {$currentPayment?.amountKAS.toFixed(2)} <span class="text-kaspa-teal">KAS</span>
     </div>
     <div class="text-white/40 text-sm font-mono">${$currentPayment?.amountUSD.toFixed(2)} USD</div>
   </div>
 
   <!-- Confirmation Time -->
-  <div class="text-center mb-6 transition-[transform,opacity] duration-500 delay-300" class:opacity-100={showContent} class:opacity-0={!showContent}>
-    <div class="text-6xl font-bold font-mono tabular-nums text-kaspa-teal">
-      {confirmSec}<span class="text-2xl text-kaspa-teal/50">s</span>
+  <div class="text-center mb-4 transition-[transform,opacity] duration-500 delay-300" class:opacity-100={showContent} class:opacity-0={!showContent}>
+    <div class="text-5xl font-bold font-mono tabular-nums text-kaspa-teal">
+      {confirmSec}<span class="text-xl text-kaspa-teal/50">s</span>
     </div>
-    <div class="text-white/30 text-xs uppercase tracking-wider mt-1">Confirmation Time</div>
+    <div class="text-white/30 text-[10px] uppercase tracking-wider mt-1">Confirmation Time</div>
   </div>
 
   <!-- Speed Comparison -->
-  <div class="w-full max-w-sm space-y-2.5 transition-[transform,opacity] duration-500 delay-500" class:opacity-100={showBars} class:opacity-0={!showBars}>
-    <div class="text-white/30 text-xs uppercase tracking-wider text-center mb-3">Speed Comparison</div>
+  <div class="w-full max-w-sm space-y-2 transition-[transform,opacity] duration-500 delay-500" class:opacity-100={showBars} class:opacity-0={!showBars}>
+    <div class="text-white/30 text-[10px] uppercase tracking-wider text-center mb-2">Speed Comparison</div>
     {#each chains as chain}
-      <div class="flex items-center gap-3">
-        <div class="w-20 text-right text-xs font-medium" style="color: {chain.color}">{chain.name}</div>
-        <div class="flex-1 h-7 bg-white/5 rounded-full overflow-hidden relative">
+      <div class="flex items-center gap-2">
+        <div class="w-16 text-right text-[11px] font-medium shrink-0" style="color: {chain.color}">{chain.name}</div>
+        <div class="flex-1 h-6 bg-white/5 rounded-full overflow-hidden relative">
           <div
             class="h-full rounded-full transition-[transform,opacity] duration-1000 ease-out"
             style="
@@ -103,7 +103,7 @@
 
   <!-- TX ID -->
   {#if $currentPayment?.txId}
-    <div class="mt-4 text-white/15 text-[10px] font-mono break-all text-center max-w-[300px]">
+    <div class="mt-3 text-white/15 text-[10px] font-mono break-all text-center max-w-[280px]">
       TX: {$currentPayment.txId.slice(0, 20)}...
     </div>
   {/if}
@@ -111,7 +111,7 @@
   <!-- New Sale Button -->
   <button
     onclick={resetToIdle}
-    class="mt-6 w-full max-w-sm py-4 rounded-[--radius-lg] bg-kaspa-teal text-kaspa-dark font-bold text-lg transition-[transform] duration-150 ease-out active:scale-[0.97] shadow-lg shadow-kaspa-teal/20"
+    class="mt-4 w-full max-w-sm py-3.5 rounded-[--radius-lg] bg-kaspa-teal text-kaspa-dark font-bold text-lg transition-[transform] duration-150 ease-out active:scale-[0.97] shadow-lg shadow-kaspa-teal/20"
   >
     New Sale
   </button>
