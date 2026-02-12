@@ -32,7 +32,7 @@
   <div class="relative mb-6">
     <!-- Glow ring -->
     <div
-      class="absolute inset-0 rounded-full bg-success/20 blur-xl transition-all duration-700"
+      class="absolute inset-0 rounded-full bg-success/20 blur-xl transition-[transform,opacity] duration-700"
       class:scale-150={showContent}
       class:opacity-100={showContent}
       class:opacity-0={!showContent}
@@ -40,7 +40,7 @@
 
     <!-- Checkmark circle -->
     <div
-      class="relative w-24 h-24 rounded-full bg-success/20 border-2 border-success flex items-center justify-center transition-all duration-500"
+      class="relative w-24 h-24 rounded-full bg-success/20 border-2 border-success flex items-center justify-center transition-[transform,opacity] duration-500"
       class:scale-100={showContent}
       class:scale-0={!showContent}
     >
@@ -50,7 +50,7 @@
           stroke-linejoin="round"
           stroke-width="3"
           d="M5 13l4 4L19 7"
-          class="transition-all duration-300 delay-300"
+          class="transition-[transform,opacity] duration-300 delay-300"
           style="stroke-dasharray: 24; stroke-dashoffset: {showContent ? 0 : 24}"
         />
       </svg>
@@ -58,7 +58,7 @@
   </div>
 
   <!-- Confirmed Text -->
-  <div class="text-center mb-2 transition-all duration-500 delay-200" class:opacity-100={showContent} class:opacity-0={!showContent} class:translate-y-0={showContent} class:translate-y-4={!showContent}>
+  <div class="text-center mb-2 transition-[transform,opacity] duration-500 delay-200" class:opacity-100={showContent} class:opacity-0={!showContent} class:translate-y-0={showContent} class:translate-y-4={!showContent}>
     <div class="text-success text-sm font-medium uppercase tracking-wider">Payment Confirmed</div>
     <div class="text-4xl font-bold text-white font-mono tabular-nums mt-1">
       {$currentPayment?.amountKAS.toFixed(2)} <span class="text-kaspa-teal">KAS</span>
@@ -67,7 +67,7 @@
   </div>
 
   <!-- Confirmation Time -->
-  <div class="text-center mb-6 transition-all duration-500 delay-300" class:opacity-100={showContent} class:opacity-0={!showContent}>
+  <div class="text-center mb-6 transition-[transform,opacity] duration-500 delay-300" class:opacity-100={showContent} class:opacity-0={!showContent}>
     <div class="text-6xl font-bold font-mono tabular-nums text-kaspa-teal">
       {confirmSec}<span class="text-2xl text-kaspa-teal/50">s</span>
     </div>
@@ -75,14 +75,14 @@
   </div>
 
   <!-- Speed Comparison -->
-  <div class="w-full max-w-sm space-y-2.5 transition-all duration-500 delay-500" class:opacity-100={showBars} class:opacity-0={!showBars}>
+  <div class="w-full max-w-sm space-y-2.5 transition-[transform,opacity] duration-500 delay-500" class:opacity-100={showBars} class:opacity-0={!showBars}>
     <div class="text-white/30 text-xs uppercase tracking-wider text-center mb-3">Speed Comparison</div>
     {#each chains as chain}
       <div class="flex items-center gap-3">
         <div class="w-20 text-right text-xs font-medium" style="color: {chain.color}">{chain.name}</div>
         <div class="flex-1 h-7 bg-white/5 rounded-full overflow-hidden relative">
           <div
-            class="h-full rounded-full transition-all duration-1000 ease-out"
+            class="h-full rounded-full transition-[transform,opacity] duration-1000 ease-out"
             style="
               width: {showBars ? Math.max(3, (chain.time / maxTime) * 100) : 0}%;
               background: {chain.color}22;
@@ -111,7 +111,7 @@
   <!-- New Sale Button -->
   <button
     onclick={resetToIdle}
-    class="mt-6 w-full max-w-sm py-4 rounded-xl bg-kaspa-teal text-kaspa-dark font-bold text-lg hover:brightness-110 transition-all active:scale-[0.98] shadow-lg shadow-kaspa-teal/20"
+    class="mt-6 w-full max-w-sm py-4 rounded-[--radius-lg] bg-kaspa-teal text-kaspa-dark font-bold text-lg transition-[transform] duration-150 ease-out active:scale-[0.97] shadow-lg shadow-kaspa-teal/20"
   >
     New Sale
   </button>

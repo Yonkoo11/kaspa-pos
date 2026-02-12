@@ -70,7 +70,7 @@
     {#if $payments.length > 0}
     <button
       onclick={onShowHistory}
-      class="text-white/40 hover:text-white/80 transition-colors p-2"
+      class="text-white/40 hover:text-white/80 transition-[color] duration-150 p-2"
       aria-label="History"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@
     {/if}
     <button
       onclick={() => showSettings = !showSettings}
-      class="text-white/40 hover:text-white/80 transition-colors p-2"
+      class="text-white/40 hover:text-white/80 transition-[color] duration-150 p-2"
       aria-label="Settings"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,11 +100,11 @@
         type="text"
         bind:value={addressInput}
         placeholder="kaspa:qr..."
-        class="w-full bg-kaspa-dark border border-kaspa-border rounded-lg px-3 py-2.5 text-white/90 text-sm font-mono placeholder:text-white/20 focus:outline-none focus:border-kaspa-teal/50 transition-colors"
+        class="w-full bg-kaspa-dark border border-kaspa-border rounded-lg px-3 py-2.5 text-white/90 text-base font-mono placeholder:text-white/20 focus:outline-none focus:border-kaspa-teal/50 transition-[border-color] duration-150"
       />
       <button
         onclick={saveAddress}
-        class="mt-3 w-full bg-kaspa-teal/20 hover:bg-kaspa-teal/30 text-kaspa-teal font-medium py-2 rounded-lg transition-colors text-sm"
+        class="mt-3 w-full bg-kaspa-teal/20 hover:bg-kaspa-teal/30 text-kaspa-teal font-medium py-2 rounded-lg transition-[background-color] duration-150 text-sm"
       >
         Save Address
       </button>
@@ -113,7 +113,7 @@
 
   <!-- Amount Display -->
   <div class="flex-none px-4 py-6">
-    <button onclick={toggleMode} class="text-white/40 text-xs uppercase tracking-wider hover:text-white/60 transition-colors mb-1">
+    <button onclick={toggleMode} class="text-white/40 text-xs uppercase tracking-wider hover:text-white/60 transition-[color] duration-150 mb-1">
       {inputMode === 'usd' ? 'USD' : 'KAS'} &darr;
     </button>
     <div class="text-5xl font-bold text-white tracking-tight font-mono tabular-nums min-h-[3.5rem]">
@@ -145,7 +145,7 @@
       {#each keys as key}
         <button
           onclick={() => pressKey(key)}
-          class="rounded-xl text-xl font-medium transition-all active:scale-95
+          class="rounded-[--radius-lg] text-xl font-medium transition-[transform,background-color] duration-150 ease-out active:scale-[0.97]
             {key === 'C'
               ? 'bg-white/5 text-white/50 hover:bg-white/10'
               : 'bg-kaspa-surface hover:bg-kaspa-surface/80 text-white border border-kaspa-border/50'
@@ -159,7 +159,7 @@
     <!-- Backspace -->
     <button
       onclick={backspace}
-      class="w-full py-3 rounded-xl bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/60 transition-all text-sm"
+      class="w-full py-3 rounded-[--radius-lg] bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/60 transition-[background-color,color] duration-150 text-sm"
     >
       &larr; Delete
     </button>
@@ -168,9 +168,9 @@
     <button
       onclick={charge}
       disabled={kasAmount <= 0 || !$merchantAddress}
-      class="w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-[0.98]
+      class="w-full py-4 rounded-[--radius-lg] font-bold text-lg transition-[transform,filter] duration-150 ease-out active:scale-[0.97]
         {kasAmount > 0 && $merchantAddress
-          ? 'bg-kaspa-teal text-kaspa-dark hover:brightness-110 shadow-lg shadow-kaspa-teal/20'
+          ? 'bg-kaspa-teal text-kaspa-dark shadow-lg shadow-kaspa-teal/20'
           : 'bg-white/5 text-white/20 cursor-not-allowed'
         }"
     >

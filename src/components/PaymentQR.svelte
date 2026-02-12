@@ -57,7 +57,7 @@
   <!-- Cancel -->
   <button
     onclick={cancelPayment}
-    class="text-white/30 hover:text-white/60 text-sm transition-colors py-2 px-6"
+    class="text-white/30 hover:text-white/60 text-sm transition-[color] duration-150 py-2 px-6"
   >
     Cancel
   </button>

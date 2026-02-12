@@ -8,6 +8,11 @@
   --color-success: #22c55e;
   --color-danger: #ef4444;
   --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
 }
 
 html, body {
@@ -19,12 +24,23 @@ html, body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow: hidden;
 }
 
 #app {
   width: 100vw;
   height: 100vh;
+}
+
+/* Reduced motion: kill all animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .qr-glow { animation: none; }
 }
 
 /* QR pulse glow */
@@ -37,9 +53,18 @@ html, body {
   animation: qr-pulse 2s ease-in-out infinite;
 }
 
-/* Keypad button press feedback */
-@keyframes key-press {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.95); }
-  100% { transform: scale(1); }
+/* Focus visible ring for keyboard navigation */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-kaspa-dark), 0 0 0 4px var(--color-kaspa-teal);
+}
+
+/* Hover only on hover-capable devices */
+@media (hover: hover) {
+  .hover-lift:hover { transform: translateY(-1px); }
+}
+
+/* iOS tap highlight removal */
+button, a, input {
+  -webkit-tap-highlight-color: transparent;
 }

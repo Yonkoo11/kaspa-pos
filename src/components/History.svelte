@@ -20,7 +20,7 @@
   <!-- Header -->
   <div class="flex items-center justify-between px-4 pt-4 pb-3 border-b border-kaspa-border">
     <h2 class="text-white font-medium">Transaction History</h2>
-    <button onclick={onClose} class="text-white/40 hover:text-white/80 transition-colors p-1" aria-label="Close">
+    <button onclick={onClose} class="text-white/40 hover:text-white/80 transition-[color,background-color] duration-150 p-1" aria-label="Close">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
@@ -49,7 +49,7 @@
       </div>
     {:else}
       {#each sortedPayments as payment}
-        <div class="px-4 py-3 border-b border-kaspa-border/50 hover:bg-white/[0.02] transition-colors">
+        <div class="px-4 py-3 border-b border-kaspa-border/50 hover:bg-white/[0.02] transition-[color,background-color] duration-150">
           <div class="flex items-center justify-between">
             <div>
               <span class="text-white font-mono font-medium tabular-nums">{payment.amountKAS.toFixed(2)} KAS</span>
@@ -79,7 +79,7 @@
     <div class="px-4 py-3 border-t border-kaspa-border">
       <button
         onclick={clearHistory}
-        class="w-full py-2 text-sm text-white/30 hover:text-danger transition-colors rounded-lg hover:bg-danger/5"
+        class="w-full py-2 text-sm text-white/30 hover:text-danger transition-[color,background-color] duration-150 rounded-lg hover:bg-danger/5"
       >
         Clear History
       </button>
