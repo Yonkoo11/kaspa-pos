@@ -25,7 +25,7 @@ merchantAddress.subscribe(addr => {
 
 // Persist history
 payments.subscribe(p => {
-  localStorage.setItem('kaspa-pos-history', JSON.stringify(p.slice(-50)))
+  localStorage.setItem('kaspa-pos-history', JSON.stringify(p.slice(-200)))
 })
 
 // Session totals
