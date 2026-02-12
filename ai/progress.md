@@ -1,39 +1,43 @@
 # KaspaPOS Progress
 
-## Status: v1 LIVE - Core flow working
+## Status: Design Phase 4 - Implementing LIQUID+STARK hybrid
 
-## Completed
+## Design Workflow
+- Phase 1: SKIPPED (state already built)
+- Phase 2: DONE - 3 proposals generated (proposals/ directory)
+- Phase 3: DONE - User selected hybrid of LIQUID (glass/glow/blur) + STARK (giant typography, minimal, spacing-driven)
+- Phase 4: IN PROGRESS - need to rewrite all 4 components with hybrid design
+- Phase 5: PENDING - 44-item QA checklist
+
+## Hybrid Design Direction
+STARK typography + LIQUID materials:
+- Giant monospace numbers (72px+ for amounts, 80px+ for confirmation time)
+- Glass surfaces with backdrop-filter: blur(16px), rgba(255,255,255,0.05) bg
+- Animated teal gradient blobs in background (visible through glass)
+- Minimal decoration, spacing creates hierarchy (not borders)
+- Teal accent (#49EACB) used sparingly - charge button, active states, confirmation
+- Border-radius: 4-8px (STARK tight, not LIQUID's 20px roundness)
+- 5-level text hierarchy: #f0f0f3, #b8bcc5, #8b9099, #5c6370, #3d4048
+- Inter for UI, JetBrains Mono for numbers/amounts
+- Motion: 150-200ms ease-out, subtle not dramatic
+
+## Files to Modify
+1. src/app.css - design tokens, blob keyframes, glass utility classes
+2. src/App.svelte - add background blobs layer
+3. src/components/AmountEntry.svelte - giant type, glass keypad, minimal layout
+4. src/components/PaymentQR.svelte - glass QR card, teal glow ring
+5. src/components/Confirmation.svelte - massive confirmation time, glass stats, thin rule speed comparison
+6. src/components/History.svelte - glass drawer
+
+## Completed Previously
 - [x] Project scaffold (Svelte 5 + Vite + TailwindCSS 4 + TypeScript)
-- [x] Calculator-style amount entry with USD/KAS toggle
-- [x] Live KAS/USD price from CoinGecko API
-- [x] Settings panel for merchant address (persisted in localStorage)
-- [x] QR code payment screen with kaspa: URI
-- [x] Live elapsed timer (60fps)
-- [x] UTXO polling payment detection (300ms interval)
-- [x] Confirmation screen with checkmark animation
-- [x] Speed comparison bars (Kaspa vs Solana vs Ethereum vs Bitcoin)
-- [x] Audio "cha-ching" on confirmation
-- [x] Payment history persistence (localStorage)
-- [x] GitHub repo: https://github.com/Yonkoo11/kaspa-pos
-- [x] GitHub Pages: https://yonkoo11.github.io/kaspa-pos/
-
-## Remaining
-- [ ] README with screenshots and setup instructions
-- [ ] AI_USAGE.md (hackathon requirement)
-- [ ] Transaction history drawer/sidebar
-- [ ] Polish: animations, micro-interactions
-- [ ] Screenshot for repo
-- [ ] Demo video (3 min)
-- [ ] Submit on DoraHacks
+- [x] Full payment flow (amount entry -> QR -> UTXO detection -> confirmation)
+- [x] Audio confirmation, payment history, localStorage persistence
+- [x] GitHub Pages deployment
+- [x] 2 polish passes
+- [x] 3 design proposals generated
 
 ## URLs
 - Repo: https://github.com/Yonkoo11/kaspa-pos
 - Live: https://yonkoo11.github.io/kaspa-pos/
-- Hackathon: https://dorahacks.io/hackathon/kaspathon/detail
-
-## Stack
-- Svelte 5 + Vite + TailwindCSS 4 + TypeScript
-- QRCode library for QR generation
-- Kaspa REST API for UTXO detection + price
-- CoinGecko API for KAS/USD price
-- Pure client-side, no backend
+- Hackathon: https://dorahacks.io/hackathon/kaspathon/detail (deadline Feb 15)

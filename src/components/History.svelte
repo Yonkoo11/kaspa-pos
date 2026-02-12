@@ -18,54 +18,54 @@
 
 <div class="flex flex-col h-full">
   <!-- Header -->
-  <div class="flex items-center justify-between px-4 pt-4 pb-3 border-b border-kaspa-border">
-    <h2 class="text-white font-medium">Transaction History</h2>
-    <button onclick={onClose} class="text-white/40 hover:text-white/80 transition-[color,background-color] duration-150 p-1" aria-label="Close">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <div class="flex items-center justify-between px-5 pt-5 pb-4">
+    <h2 class="text-l1 font-medium text-sm">Transaction History</h2>
+    <button onclick={onClose} class="text-l4 hover:text-l2 transition-[color] duration-150 p-1.5" aria-label="Close">
+      <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
   </div>
 
   <!-- Session Summary -->
-  <div class="px-4 py-4 bg-kaspa-surface/50 border-b border-kaspa-border">
-    <div class="text-white/40 text-xs uppercase tracking-wider mb-1">Today's Total</div>
+  <div class="mx-5 mb-4 p-4 glass rounded-[--radius-md]">
+    <div class="text-l4 text-[10px] uppercase tracking-[0.08em] mb-2 font-medium">Today's Total</div>
     <div class="flex items-baseline gap-2">
-      <span class="text-2xl font-bold text-white font-mono tabular-nums">{$sessionTotal.toFixed(2)}</span>
-      <span class="text-kaspa-teal font-medium">KAS</span>
-      <span class="text-white/30 text-sm font-mono ml-auto">${sessionUSD.toFixed(2)}</span>
+      <span class="text-[28px] font-light text-l1 font-mono tabular-nums leading-none">{$sessionTotal.toFixed(2)}</span>
+      <span class="text-kaspa-teal text-sm font-medium">KAS</span>
+      <span class="text-l4 text-sm font-mono ml-auto">${sessionUSD.toFixed(2)}</span>
     </div>
-    <div class="text-white/30 text-xs mt-1">{sortedPayments.length} transaction{sortedPayments.length !== 1 ? 's' : ''}</div>
+    <div class="text-l4 text-[11px] mt-2">{sortedPayments.length} transaction{sortedPayments.length !== 1 ? 's' : ''}</div>
   </div>
 
   <!-- Transaction List -->
-  <div class="flex-1 overflow-y-auto">
+  <div class="flex-1 overflow-y-auto px-5">
     {#if sortedPayments.length === 0}
-      <div class="flex flex-col items-center justify-center h-full text-white/20 gap-2">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="flex flex-col items-center justify-center h-full text-l5 gap-3">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
         <span class="text-sm">No transactions yet</span>
       </div>
     {:else}
       {#each sortedPayments as payment}
-        <div class="px-4 py-3 border-b border-kaspa-border/50 hover:bg-white/[0.02] transition-[color,background-color] duration-150">
+        <div class="py-3 border-b border-white/[0.04]">
           <div class="flex items-center justify-between">
             <div>
-              <span class="text-white font-mono font-medium tabular-nums">{payment.amountKAS.toFixed(2)} KAS</span>
-              <span class="text-white/30 text-xs ml-2">${payment.amountUSD.toFixed(2)}</span>
+              <span class="text-l1 font-mono font-medium text-sm tabular-nums">{payment.amountKAS.toFixed(2)} KAS</span>
+              <span class="text-l4 text-xs ml-2">${payment.amountUSD.toFixed(2)}</span>
             </div>
             <div class="text-right">
               {#if payment.confirmationMs}
-                <span class="text-kaspa-teal text-xs font-mono">{(payment.confirmationMs / 1000).toFixed(1)}s</span>
+                <span class="text-kaspa-teal text-xs font-mono tabular-nums">{(payment.confirmationMs / 1000).toFixed(1)}s</span>
               {/if}
             </div>
           </div>
           <div class="flex items-center justify-between mt-1">
-            <span class="text-white/20 text-xs font-mono">
+            <span class="text-l5 text-[10px] font-mono">
               {payment.txId ? payment.txId.slice(0, 16) + '...' : 'pending'}
             </span>
-            <span class="text-white/20 text-xs">
+            <span class="text-l5 text-[10px]">
               {payment.confirmedAt ? formatTime(payment.confirmedAt) : ''}
             </span>
           </div>
@@ -76,10 +76,10 @@
 
   <!-- Clear -->
   {#if sortedPayments.length > 0}
-    <div class="px-4 py-3 border-t border-kaspa-border">
+    <div class="px-5 py-4">
       <button
         onclick={clearHistory}
-        class="w-full py-2 text-sm text-white/30 hover:text-danger transition-[color,background-color] duration-150 rounded-lg hover:bg-danger/5"
+        class="w-full py-2.5 text-sm text-l4 hover:text-danger transition-[color] duration-150 rounded-[--radius-sm] hover:bg-danger/5"
       >
         Clear History
       </button>
