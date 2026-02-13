@@ -39,7 +39,7 @@
       </h1>
       <button
         onclick={() => navigate('terminal')}
-        class="font-(family-name:--font-family-mono) text-[11px] uppercase tracking-[0.05em] bg-(--color-accent) text-black px-5 py-3 rounded-[var(--radius-sm)] font-medium cursor-pointer hover:opacity-90 transition-opacity"
+        class="font-(family-name:--font-family-mono) text-[11px] uppercase tracking-[0.05em] bg-(--color-accent) text-black px-5 py-3 rounded-[var(--radius-sm)] font-medium cursor-pointer hover-opacity-90 transition-opacity"
         style="min-height: 44px;"
       >
         OPEN TERMINAL &rarr;
@@ -61,14 +61,14 @@
         <div class="flex items-center justify-center gap-3">
           <button
             onclick={() => loadDemoData()}
-            class="font-(family-name:--font-family-mono) text-[11px] uppercase tracking-[0.05em] bg-(--color-accent) text-black px-5 py-3 rounded-[var(--radius-sm)] font-medium cursor-pointer hover:opacity-90 transition-opacity"
+            class="font-(family-name:--font-family-mono) text-[11px] uppercase tracking-[0.05em] bg-(--color-accent) text-black px-5 py-3 rounded-[var(--radius-sm)] font-medium cursor-pointer hover-opacity-90 transition-opacity"
             style="min-height: 44px;"
           >
             Load Demo Data
           </button>
           <button
             onclick={() => navigate('terminal')}
-            class="font-(family-name:--font-family-mono) text-[11px] uppercase tracking-[0.05em] border border-(--color-border) text-(--color-text-primary) px-5 py-3 rounded-[var(--radius-sm)] font-medium cursor-pointer bg-transparent hover:bg-(--color-surface-2) transition-colors"
+            class="font-(family-name:--font-family-mono) text-[11px] uppercase tracking-[0.05em] border border-(--color-border) text-(--color-text-primary) px-5 py-3 rounded-[var(--radius-sm)] font-medium cursor-pointer bg-transparent hover-bg-surface-2 transition-colors"
             style="min-height: 44px;"
           >
             Go to Terminal
@@ -137,7 +137,7 @@
             </h2>
             <button
               onclick={() => loadDemoData()}
-              class="font-(family-name:--font-family-mono) text-[11px] text-(--color-text-tertiary) hover:text-(--color-text-secondary) bg-transparent border-none cursor-pointer transition-colors"
+              class="font-(family-name:--font-family-mono) text-[11px] text-(--color-text-tertiary) hover-text-secondary bg-transparent border-none cursor-pointer transition-colors"
             >
               Load Demo Data
             </button>
@@ -177,7 +177,7 @@
       <div class="text-center mt-4">
         <button
           onclick={() => clearData()}
-          class="font-(family-name:--font-family-mono) text-[11px] text-(--color-text-tertiary) hover:text-(--color-danger) bg-transparent border-none cursor-pointer transition-colors"
+          class="font-(family-name:--font-family-mono) text-[11px] text-(--color-text-tertiary) hover-text-danger bg-transparent border-none cursor-pointer transition-colors"
         >
           Clear all data
         </button>

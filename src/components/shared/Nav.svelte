@@ -77,8 +77,13 @@
     display: flex;
     align-items: center;
   }
-  .nav-link:hover {
-    color: var(--color-text-primary);
+  @media (hover: hover) {
+    .nav-link:hover {
+      color: var(--color-text-primary);
+    }
+  }
+  .nav-link:active {
+    opacity: 0.7;
   }
   .nav-link.active {
     color: var(--color-accent);

@@ -279,8 +279,10 @@
     min-height: 44px;
   }
 
-  .cta-primary:hover {
-    opacity: 0.85;
+  @media (hover: hover) {
+    .cta-primary:hover {
+      opacity: 0.85;
+    }
   }
 
   .cta-primary:active {

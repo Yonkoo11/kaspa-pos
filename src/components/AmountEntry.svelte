@@ -77,7 +77,7 @@
       {#if $payments.length > 0}
         <button
           onclick={onShowHistory}
-          class="text-text-tertiary hover:text-text-primary transition-[color] duration-150 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
+          class="text-text-tertiary hover-text-primary transition-[color] duration-150 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
           aria-label="Transaction history"
         >
           <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,7 +87,7 @@
       {/if}
       <button
         onclick={() => { showSettings = !showSettings; if (showSettings) addressInput = $merchantAddress }}
-        class="text-text-tertiary hover:text-text-primary transition-[color] duration-150 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
+        class="text-text-tertiary hover-text-primary transition-[color] duration-150 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
         aria-label="Settings"
       >
         <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,7 +111,7 @@
       />
       <button
         onclick={saveAddress}
-        class="mt-3 w-full bg-accent text-black font-mono font-bold py-2.5 rounded-[--radius-sm] uppercase tracking-wide text-sm transition-[opacity] duration-150 hover:opacity-90 min-h-[44px]"
+        class="mt-3 w-full bg-accent text-black font-mono font-bold py-2.5 rounded-[--radius-sm] uppercase tracking-wide text-sm transition-[opacity] duration-150 hover-opacity-90 min-h-[44px]"
       >
         Save Address
       </button>
@@ -120,10 +120,10 @@
 
   <!-- Amount Display -->
   <div class="flex-none px-5 pt-4 pb-6">
-    <button onclick={toggleMode} class="text-text-tertiary text-[10px] font-mono uppercase tracking-widest font-medium hover:text-text-secondary transition-[color] duration-150 mb-2 flex items-center gap-1.5">
+    <button onclick={toggleMode} class="text-text-tertiary text-[10px] font-mono uppercase tracking-widest font-medium hover-text-secondary transition-[color] duration-150 mb-2 flex items-center gap-1.5">
       {inputMode === 'usd' ? 'US DOLLAR' : 'KASPA'}
       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
       </svg>
     </button>
     <div class="font-mono tabular-nums min-h-[4rem] flex items-baseline justify-end text-right">
@@ -158,8 +158,8 @@
           onclick={() => pressKey(key)}
           class="bg-surface border border-border rounded-[--radius-sm] min-h-[56px] font-mono transition-[background-color] duration-100 active:bg-border
             {key === 'CLR'
-              ? 'text-text-secondary text-xs uppercase tracking-widest hover:bg-surface-2'
-              : 'text-text-primary text-lg font-medium hover:bg-surface-2'
+              ? 'text-text-secondary text-xs uppercase tracking-widest hover-bg-surface-2'
+              : 'text-text-primary text-lg font-medium hover-bg-surface-2'
             }"
         >
           {key}
@@ -170,10 +170,10 @@
     <!-- Backspace -->
     <button
       onclick={backspace}
-      class="w-full py-3 text-text-tertiary hover:text-text-secondary transition-[color] duration-150 text-sm font-mono flex items-center justify-center gap-2 min-h-[44px]"
+      class="w-full py-3 text-text-tertiary hover-text-secondary transition-[color] duration-150 text-sm font-mono flex items-center justify-center gap-2 min-h-[44px]"
     >
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l7-7 11 0v14H10L3 12z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l7-7 11 0v14H10L3 12z" />
       </svg>
       Delete
     </button>
