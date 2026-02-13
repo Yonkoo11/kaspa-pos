@@ -117,7 +117,7 @@
     position: absolute;
     inset: -1px;
     border-radius: var(--radius-sm);
-    background: linear-gradient(135deg, rgba(73, 234, 203, 0.1), transparent 50%, rgba(73, 234, 203, 0.05));
+    background: linear-gradient(135deg, rgba(73, 234, 203, 0.18), transparent 50%, rgba(73, 234, 203, 0.08));
     pointer-events: none;
   }
 

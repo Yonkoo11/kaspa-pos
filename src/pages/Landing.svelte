@@ -121,8 +121,12 @@
   </section>
 
   <!-- Features / Capabilities -->
-  <section class="features-section bg-black px-6 py-32">
-    <div class="max-w-7xl mx-auto">
+  <section class="features-section">
+    <div class="features-bg">
+      <div class="features-glow"></div>
+      <div class="features-grid-bg"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="fade-in-up" bind:this={sections[2]}>
         <div class="section-label mb-12">CAPABILITIES</div>
       </div>
@@ -131,6 +135,7 @@
         <!-- Large card left -->
         <div class="fade-in-up" bind:this={sections[3]}>
           <div class="feature-card-large">
+            <div class="feature-glow"></div>
             <div class="feature-number">&lt;1s</div>
             <div class="feature-title">Payment Finality</div>
             <div class="feature-subtitle">Faster than card terminals</div>
@@ -157,8 +162,11 @@
   </section>
 
   <!-- Bottom CTA -->
-  <section class="cta-section px-6 py-32">
-    <div class="max-w-2xl mx-auto text-center fade-in-up" bind:this={sections[5]}>
+  <section class="cta-section">
+    <div class="cta-bg">
+      <div class="cta-glow"></div>
+    </div>
+    <div class="max-w-2xl mx-auto text-center fade-in-up relative z-10" bind:this={sections[5]}>
       <h2 class="cta-headline">Ready to accept Kaspa?</h2>
       <button
         class="cta-primary mt-8"
@@ -170,8 +178,9 @@
   </section>
 
   <!-- Footer -->
-  <footer class="px-6 py-8 border-t border-border">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
+  <footer class="footer-section">
+    <div class="footer-line"></div>
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between py-8">
       <span class="footer-text">KaspaPOS -- Built for Kaspathon 2025</span>
       <span class="footer-text">Kaspa BlockDAG</span>
     </div>
@@ -199,7 +208,7 @@
     font-size: 10px;
     line-height: 2;
     color: var(--color-accent);
-    opacity: 0.04;
+    opacity: 0.07;
     white-space: nowrap;
   }
 
@@ -275,18 +284,19 @@
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
     min-height: 44px;
+    box-shadow: 0 0 24px rgba(73, 234, 203, 0.15), 0 0 48px rgba(73, 234, 203, 0.06);
   }
 
   @media (hover: hover) {
     .cta-primary:hover {
-      opacity: 0.85;
+      box-shadow: 0 0 32px rgba(73, 234, 203, 0.25), 0 0 64px rgba(73, 234, 203, 0.1);
     }
   }
 
   .cta-primary:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
   }
 
   /* ---- Data cards ---- */
@@ -341,7 +351,37 @@
     transition: width 1s var(--ease-out);
   }
 
-  /* ---- Features ---- */
+  /* ---- Features Section ---- */
+  .features-section {
+    position: relative;
+    overflow: hidden;
+    padding: 128px 0;
+  }
+
+  .features-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .features-glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 500px 400px at 30% 40%, rgba(73, 234, 203, 0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 300px 250px at 70% 60%, rgba(73, 234, 203, 0.06) 0%, transparent 60%);
+  }
+
+  .features-grid-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.2;
+    background-image: radial-gradient(circle at center, var(--color-border) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 60% 50% at 35% 45%, black 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 35% 45%, black 20%, transparent 70%);
+  }
+
   .features-grid {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
@@ -350,6 +390,7 @@
   }
 
   .feature-card-large {
+    position: relative;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -358,6 +399,16 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+
+  .feature-glow {
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, rgba(73, 234, 203, 0.18), transparent 50%, rgba(73, 234, 203, 0.06));
+    pointer-events: none;
   }
 
   .feature-number {
@@ -394,6 +445,16 @@
     border-radius: var(--radius-md);
     padding: 20px 24px;
     flex: 1;
+    transition: border-color 0.2s ease;
+  }
+
+  @media (hover: hover) {
+    .feature-card-small:hover {
+      border-color: rgba(73, 234, 203, 0.25);
+    }
+    .feature-card-large:hover {
+      border-color: rgba(73, 234, 203, 0.25);
+    }
   }
 
   .feature-badge {
@@ -413,6 +474,25 @@
   }
 
   /* ---- Bottom CTA ---- */
+  .cta-section {
+    position: relative;
+    overflow: hidden;
+    padding: 128px 24px;
+  }
+
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .cta-glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 400px 300px at 50% 50%, rgba(73, 234, 203, 0.15) 0%, transparent 70%);
+  }
+
   .cta-headline {
     font-family: var(--font-family-serif);
     font-size: clamp(28px, 4vw, 42px);
@@ -422,6 +502,15 @@
   }
 
   /* ---- Footer ---- */
+  .footer-section {
+    position: relative;
+  }
+
+  .footer-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
+  }
+
   .footer-text {
     font-family: var(--font-family-mono);
     font-size: 11px;
