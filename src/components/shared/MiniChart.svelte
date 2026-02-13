@@ -1,100 +1,101 @@
 <script lang="ts">
   let { data, labels }: { data: number[]; labels: string[] } = $props()
 
-  const padding = 8
-  const barGap = 6
-  const width = 100
-  const height = 50
+  const padding = { top: 8, right: 8, bottom: 20, left: 40 }
+  const width = 500
+  const height = 200
 
   const maxVal = $derived(Math.max(...data, 1))
-  const barWidth = $derived((width - padding * 2 - barGap * (data.length - 1)) / data.length)
+  const minVal = $derived(Math.min(...data, 0))
+  const range = $derived(maxVal - minVal || 1)
 
-  function barHeight(val: number): number {
-    return ((val / maxVal) * (height - padding * 2 - 14)) // 14px for label space
+  function x(i: number): number {
+    const plotW = width - padding.left - padding.right
+    return padding.left + (i / (data.length - 1)) * plotW
   }
 
-  function barX(i: number): number {
-    return padding + i * (barWidth + barGap)
+  function y(val: number): number {
+    const plotH = height - padding.top - padding.bottom
+    return padding.top + (1 - (val - minVal) / range) * plotH
   }
 
-  function barY(val: number): number {
-    return height - padding - 14 - barHeight(val)
-  }
+  const linePath = $derived(
+    data.map((v, i) => `${i === 0 ? 'M' : 'L'}${x(i)},${y(v)}`).join(' ')
+  )
+
+  const areaPath = $derived(
+    linePath + ` L${x(data.length - 1)},${height - padding.bottom} L${x(0)},${height - padding.bottom} Z`
+  )
+
+  const gridLines = $derived([0.25, 0.5, 0.75].map(pct => {
+    const val = minVal + range * (1 - pct)
+    return { y: padding.top + pct * (height - padding.top - padding.bottom), label: '$' + val.toFixed(0) }
+  }))
 </script>
 
 <svg viewBox="0 0 {width} {height}" class="w-full h-full" preserveAspectRatio="xMidYMid meet">
-  {#each data as val, i}
-    <!-- Bar -->
-    <rect
-      x={barX(i)}
-      y={barY(val)}
-      width={barWidth}
-      height={Math.max(barHeight(val), 1)}
-      rx="1.5"
-      fill={val > 0 ? 'rgba(73, 234, 203, 0.6)' : 'rgba(255, 255, 255, 0.06)'}
-      class="transition-all duration-500"
-    >
-      <animate
-        attributeName="height"
-        from="0"
-        to={Math.max(barHeight(val), 1)}
-        dur="0.6s"
-        begin="{i * 0.05}s"
-        fill="freeze"
-        calcMode="spline"
-        keySplines="0.22 1 0.36 1"
-      />
-      <animate
-        attributeName="y"
-        from={height - padding - 14}
-        to={barY(val)}
-        dur="0.6s"
-        begin="{i * 0.05}s"
-        fill="freeze"
-        calcMode="spline"
-        keySplines="0.22 1 0.36 1"
-      />
-    </rect>
+  <defs>
+    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0" />
+    </linearGradient>
+  </defs>
 
-    <!-- Value on hover -->
-    {#if val > 0}
-      <text
-        x={barX(i) + barWidth / 2}
-        y={barY(val) - 2}
-        text-anchor="middle"
-        fill="#b8bcc5"
-        font-size="3"
-        font-family="JetBrains Mono, monospace"
-        opacity="0"
-        class="bar-label"
-      >
-        ${val.toFixed(0)}
-      </text>
-    {/if}
-
-    <!-- Day label -->
+  <!-- Grid lines -->
+  {#each gridLines as line}
+    <line
+      x1={padding.left}
+      y1={line.y}
+      x2={width - padding.right}
+      y2={line.y}
+      stroke="var(--color-border)"
+      stroke-width="0.5"
+      stroke-dasharray="4 4"
+    />
     <text
-      x={barX(i) + barWidth / 2}
-      y={height - padding - 2}
-      text-anchor="middle"
-      fill="#5c6370"
-      font-size="3.2"
-      font-family="Inter, sans-serif"
+      x={padding.left - 4}
+      y={line.y + 3}
+      text-anchor="end"
+      fill="var(--color-text-tertiary)"
+      style="font-family: var(--font-family-mono); font-size: 9px;"
     >
-      {labels[i] ?? ''}
+      {line.label}
+    </text>
+  {/each}
+
+  <!-- Area fill -->
+  <path d={areaPath} fill="url(#chartGrad)" />
+
+  <!-- Line -->
+  <path
+    d={linePath}
+    stroke="var(--color-accent)"
+    stroke-width="1.5"
+    fill="none"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Data points -->
+  {#each data as val, i}
+    <circle
+      cx={x(i)}
+      cy={y(val)}
+      r="3"
+      fill="var(--color-accent)"
+    />
+  {/each}
+
+  <!-- X-axis labels -->
+  {#each labels as lbl, i}
+    <text
+      x={x(i)}
+      y={height - 4}
+      text-anchor="middle"
+      fill="var(--color-text-tertiary)"
+      style="font-family: var(--font-family-mono); font-size: 9px;"
+    >
+      {lbl}
     </text>
   {/each}
 </svg>
-
-<style>
-  rect:hover + .bar-label,
-  rect:hover ~ .bar-label {
-    opacity: 1;
-  }
-  svg:hover .bar-label {
-    opacity: 0;
-  }
-  svg rect:hover + text.bar-label {
-    opacity: 1 !important;
-  }
-</style>

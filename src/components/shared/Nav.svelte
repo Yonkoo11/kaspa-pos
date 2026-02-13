@@ -4,70 +4,83 @@
 
   let scrollY = $state(0)
 
-  function onScroll() {
-    scrollY = window.scrollY
-  }
-
   $effect(() => {
+    function onScroll() { scrollY = window.scrollY }
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   })
 
-  const isScrolled = $derived(scrollY > 20)
+  const visible = $derived(scrollY > 100)
   const isTerminal = $derived($page === 'terminal')
-  const isLanding = $derived($page === 'landing')
 </script>
 
 {#if !isTerminal}
   <nav
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    class:nav-glass={isScrolled || !isLanding}
-    class:nav-transparent={!isScrolled && isLanding}
+    class="fixed top-0 left-0 right-0 z-50 h-12 flex items-center border-b border-border"
+    style="
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transform: translateY({visible ? '0%' : '-100%'});
+      opacity: {visible ? 1 : 0};
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    "
   >
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
       <!-- Logo -->
-      <button onclick={() => navigate('landing')} class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-lg bg-kaspa-teal/15 flex items-center justify-center group-hover:bg-kaspa-teal/25 transition-colors">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 1L14 5V11L8 15L2 11V5L8 1Z" stroke="#49eacb" stroke-width="1.5" fill="none"/>
-            <circle cx="8" cy="8" r="2" fill="#49eacb"/>
-          </svg>
-        </div>
-        <span class="text-l1 font-semibold text-sm tracking-wide">KaspaPOS</span>
+      <button
+        onclick={() => navigate('landing')}
+        class="flex items-center gap-0 font-mono text-xs font-semibold uppercase tracking-widest text-text-primary"
+      >
+        KASPA<span class="text-accent">.</span>POS
       </button>
 
-      <!-- Right side -->
-      <div class="flex items-center gap-4">
-        <PriceTicker />
-
-        <div class="flex items-center gap-1">
-          <button
-            onclick={() => navigate('terminal')}
-            class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors {$page === 'terminal' ? 'bg-kaspa-teal/15 text-kaspa-teal' : 'text-l2 hover:text-l1 hover:bg-white/5'}"
-          >
-            Terminal
-          </button>
-          <button
-            onclick={() => navigate('dashboard')}
-            class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition-colors {$page === 'dashboard' ? 'bg-kaspa-teal/15 text-kaspa-teal' : 'text-l2 hover:text-l1 hover:bg-white/5'}"
-          >
-            Dashboard
-          </button>
-        </div>
+      <!-- Center nav links -->
+      <div class="flex items-center gap-6">
+        <button
+          onclick={() => navigate('terminal')}
+          class="nav-link"
+          class:active={$page === 'terminal'}
+        >
+          Terminal
+        </button>
+        <button
+          onclick={() => navigate('dashboard')}
+          class="nav-link"
+          class:active={$page === 'dashboard'}
+        >
+          Dashboard
+        </button>
       </div>
+
+      <!-- Right: PriceTicker -->
+      <PriceTicker />
     </div>
   </nav>
-  <div class="h-16"></div>
+  <div class="h-12" style="display: {visible ? 'block' : 'none'}"></div>
 {/if}
 
 <style>
-  .nav-glass {
-    background: rgba(10, 14, 23, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  .nav-link {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-secondary);
+    background: none;
+    border: none;
+    padding: 12px 4px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
-  .nav-transparent {
-    background: transparent;
+  .nav-link:hover {
+    color: var(--color-text-primary);
+  }
+  .nav-link.active {
+    color: var(--color-accent);
   }
 </style>

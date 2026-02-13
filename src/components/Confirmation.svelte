@@ -33,7 +33,7 @@
     class:opacity-100={showContent}
     class:opacity-0={!showContent}
   >
-    <div class="text-kaspa-teal text-[11px] font-medium uppercase tracking-[0.1em] text-center">Confirmed</div>
+    <div class="text-accent text-[10px] font-mono font-medium uppercase tracking-[0.1em] text-center">Confirmed</div>
   </div>
 
   <!-- Giant Confirmation Time -->
@@ -44,10 +44,9 @@
     class:scale-100={showContent}
     class:scale-95={!showContent}
   >
-    <div class="text-[80px] font-mono font-light text-l1 leading-none tracking-tighter tabular-nums">
-      {confirmSec}<span class="text-[28px] text-l4">s</span>
+    <div class="text-[80px] font-serif font-normal text-accent leading-none tracking-tighter tabular-nums">
+      {confirmSec}<span class="text-[28px] text-text-tertiary font-mono">s</span>
     </div>
-    <div class="text-l4 text-[11px] uppercase tracking-[0.08em] mt-2">confirmation time</div>
   </div>
 
   <!-- Accent Line -->
@@ -63,11 +62,11 @@
     class:opacity-100={showContent}
     class:opacity-0={!showContent}
   >
-    <div class="text-l4 text-[11px] uppercase tracking-[0.08em] mb-1">Received</div>
-    <div class="text-[32px] font-mono font-light text-l1 leading-none tracking-tight tabular-nums">
-      {$currentPayment?.amountKAS.toFixed(2)} <span class="text-kaspa-teal text-lg">KAS</span>
+    <div class="text-text-tertiary text-[10px] font-mono uppercase tracking-widest mb-1">Received</div>
+    <div class="text-[32px] font-serif text-text-primary leading-none tracking-tight tabular-nums">
+      {$currentPayment?.amountKAS.toFixed(2)} <span class="text-accent text-lg font-mono">KAS</span>
     </div>
-    <div class="text-l3 text-sm font-mono mt-1">${$currentPayment?.amountUSD.toFixed(2)} USD</div>
+    <div class="text-text-tertiary text-sm font-mono mt-1 tabular-nums">${$currentPayment?.amountUSD.toFixed(2)} USD</div>
   </div>
 
   <!-- Speed Comparison -->
@@ -76,20 +75,20 @@
     class:opacity-100={showBars}
     class:opacity-0={!showBars}
   >
-    <div class="text-l4 text-[11px] uppercase tracking-[0.08em] mb-4">vs. traditional</div>
+    <div class="text-text-tertiary text-[10px] font-mono uppercase tracking-widest mb-4">vs. Traditional</div>
     {#each chains as chain}
-      <div class="flex items-center py-2.5 border-t border-white/[0.04]">
-        <div class="w-20 text-[13px] shrink-0 {chain.accent ? 'text-kaspa-teal font-medium' : 'text-l3'}">{chain.name}</div>
-        <div class="flex-1 h-[3px] bg-white/[0.04] rounded-full mx-3 overflow-hidden">
+      <div class="flex items-center py-2.5 border-t border-border">
+        <div class="w-[48px] text-[10px] font-mono uppercase shrink-0 {chain.accent ? 'text-accent font-medium' : 'text-text-secondary'}">{chain.name}</div>
+        <div class="flex-1 h-[3px] bg-border rounded-[--radius-sm] mx-3 overflow-hidden">
           <div
-            class="h-full rounded-full transition-[width] duration-1000"
+            class="h-full rounded-[--radius-sm] transition-[width] duration-1000"
             style="
               width: {showBars ? Math.max(2, (chain.time / maxTime) * 100) : 0}%;
-              background: {chain.accent ? '#49eacb' : 'rgba(255,255,255,0.12)'};
+              background: {chain.accent ? 'var(--color-accent)' : 'var(--color-border-light)'};
             "
           ></div>
         </div>
-        <div class="w-12 text-right text-[13px] font-mono tabular-nums shrink-0 {chain.accent ? 'text-kaspa-teal font-medium' : 'text-l4'}">
+        <div class="w-12 text-right text-[13px] font-mono tabular-nums shrink-0 {chain.accent ? 'text-accent font-medium' : 'text-text-tertiary'}">
           {chain.display}
         </div>
       </div>
@@ -98,7 +97,7 @@
 
   <!-- TX ID -->
   {#if $currentPayment?.txId}
-    <div class="mt-4 text-l5 text-[10px] font-mono break-all text-center max-w-[260px]">
+    <div class="mt-4 text-text-tertiary text-[10px] font-mono break-all text-center max-w-[260px]">
       TX: {$currentPayment.txId.slice(0, 20)}...
     </div>
   {/if}
@@ -106,7 +105,7 @@
   <!-- New Sale Button -->
   <button
     onclick={resetToIdle}
-    class="mt-6 w-full max-w-sm py-3.5 rounded-[--radius-md] bg-kaspa-teal text-kaspa-dark font-semibold text-base transition-[transform] duration-150 active:scale-[0.97] shadow-[0_0_30px_rgba(73,234,203,0.15)]"
+    class="mt-6 w-full max-w-sm min-h-[56px] rounded-[--radius-sm] bg-accent text-black font-mono font-bold text-sm uppercase tracking-[0.08em] transition-[transform] duration-150 active:scale-[0.97]"
   >
     New Transaction
   </button>

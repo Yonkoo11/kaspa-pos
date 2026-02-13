@@ -9,8 +9,35 @@
   })
 </script>
 
-<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass text-xs font-medium">
-  <div class="w-1.5 h-1.5 rounded-full bg-kaspa-teal animate-pulse"></div>
-  <span class="text-l2">KAS</span>
-  <span class="text-l1 font-mono">${$kasPrice.toFixed(4)}</span>
+<div class="ticker">
+  <span class="dot"></span>
+  <span class="label">KAS</span>
+  <span class="price">${$kasPrice.toFixed(4)}</span>
 </div>
+
+<style>
+  .ticker {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  .label {
+    color: var(--color-text-secondary);
+  }
+  .price {
+    color: var(--color-text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

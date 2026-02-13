@@ -1,41 +1,43 @@
 # KaspaPOS Progress
 
-## Status: Multi-page expansion COMPLETE - Deploying
+## Status: Implementing Proposal 1 design (Bloomberg Terminal aesthetic)
 
-## What's Done
-- Design Phase 5 (QA passed) from prior session
-- Multi-page expansion: Landing + Terminal + Dashboard
-- Hash-based routing (no library)
-- Analytics store with derived stats + demo data (18 transactions)
-- Pure SVG bar chart, stat cards with count-up animations
-- Page transition animations (fade)
-- Nav bar with live KAS price ticker
-- Build passes clean
+## Design Direction: DNA-A-H-I-M-X
+- **Layout:** Asymmetric
+- **Nav:** Hidden (appears on scroll)
+- **Hero:** Immersive (streaming data background)
+- **Color:** Monochrome (#0a0a0a + #fafafa + surgical teal #49eacb)
+- **Typography:** DM Serif Display (headlines) + JetBrains Mono (body/data)
+- **Radius:** Only 2px and 4px
+- **Easing:** cubic-bezier(0.16, 1, 0.3, 1) and cubic-bezier(0.65, 0, 0.35, 1)
 
-## New Files (9)
-- `src/stores/router.ts` - Hash routing
-- `src/stores/analytics.ts` - Derived analytics + loadDemoData()
-- `src/pages/Landing.svelte` - Hero + features + how-it-works + CTA
-- `src/pages/Terminal.svelte` - Extracted POS (unchanged behavior)
-- `src/pages/Dashboard.svelte` - Stats, chart, transactions table
-- `src/components/shared/Nav.svelte` - Glass nav, hidden on terminal
-- `src/components/shared/PriceTicker.svelte` - Live KAS/USD
-- `src/components/shared/StatCard.svelte` - Animated metric card
-- `src/components/shared/MiniChart.svelte` - SVG bar chart
+## Files to Rewrite (12 total)
+1. src/app.css - Full design system overhaul
+2. src/App.svelte - Already thin router (minor updates)
+3. src/pages/Landing.svelte - Asymmetric hero + data viz + features
+4. src/pages/Terminal.svelte - Updated wrapper
+5. src/pages/Dashboard.svelte - Dense data layout
+6. src/components/shared/Nav.svelte - Hidden scroll-reveal nav
+7. src/components/shared/PriceTicker.svelte - Mono data style
+8. src/components/shared/StatCard.svelte - Dense stat card
+9. src/components/shared/MiniChart.svelte - SVG line chart (not bars)
+10. src/components/AmountEntry.svelte - Terminal aesthetic
+11. src/components/PaymentQR.svelte - Monochrome QR
+12. src/components/Confirmation.svelte - Data-dense confirmation
 
-## Modified Files (3)
-- `src/App.svelte` - Slim page router with fade transitions
-- `src/app.css` - Removed global overflow:hidden
-- `src/stores/pos.ts` - History limit 50 -> 200
+## What's Already Done
+- Multi-page expansion (routing, 3 pages working)
+- Deployed to GitHub Pages
+- 3 design proposals generated, Proposal 1 selected
 
-## Remaining
-- [ ] Commit + push multi-page work
-- [ ] Deploy to GitHub Pages
-- [ ] Frontend design polish pass
-- [ ] Record 3-min demo video
-- [ ] Submit on DoraHacks BUIDL
-
-## URLs
-- Repo: https://github.com/Yonkoo11/kaspa-pos
-- Live: https://yonkoo11.github.io/kaspa-pos/
-- Hackathon: https://dorahacks.io/hackathon/kaspathon/detail (deadline Feb 15)
+## Key Design Tokens (from proposal-1.html)
+```css
+--bg: #0a0a0a; --surface: #111111; --surface-2: #1a1a1a;
+--border: #222222; --border-light: #333333;
+--text-primary: #fafafa; --text-secondary: #888888; --text-tertiary: #555555;
+--accent: #49eacb; --accent-dim: rgba(73, 234, 203, 0.12);
+--font-serif: 'DM Serif Display', Georgia, serif;
+--font-mono: 'JetBrains Mono', 'Courier New', monospace;
+--radius-sm: 2px; --radius-md: 4px;
+--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+```
