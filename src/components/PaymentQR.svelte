@@ -23,29 +23,30 @@
   $: formattedTime = ($elapsedMs / 1000).toFixed(1)
 </script>
 
-<div class="flex flex-col items-center justify-center h-full px-5 py-8 gap-8">
+<div class="qr-screen">
   <!-- Amount -->
   <div class="text-center">
-    <div class="text-text-tertiary text-[10px] font-mono uppercase tracking-widest font-medium mb-3">Payment Request</div>
-    <div class="text-[48px] font-serif text-text-primary leading-none tracking-tight flex items-baseline justify-center tabular-nums">
-      {$amountKAS.toFixed(2)}<span class="text-accent text-lg ml-2 font-mono font-normal">KAS</span>
+    <div class="qr-label">Payment Request</div>
+    <div class="qr-amount">
+      {$amountKAS.toFixed(2)}<span class="qr-amount-unit">KAS</span>
     </div>
     <div class="text-text-tertiary text-xs mt-1.5 font-mono tabular-nums">${$amountUSD.toFixed(2)} USD</div>
   </div>
 
-  <!-- QR Code -->
-  <div class="bg-surface border border-border rounded-[--radius-sm] p-6">
+  <!-- QR Code with glow -->
+  <div class="qr-card">
+    <div class="qr-glow"></div>
     <canvas bind:this={canvas}></canvas>
   </div>
 
   <!-- Timer -->
   <div class="text-center">
     <div class="flex items-center gap-2 justify-center">
-      <div class="w-1.5 h-1.5 rounded-full bg-accent" style="animation: pulse-dot 1.5s ease-in-out infinite;"></div>
-      <span class="text-text-tertiary text-[10px] font-mono uppercase tracking-widest">Waiting for Payment</span>
+      <div class="pulse-dot"></div>
+      <span class="qr-label">Waiting for Payment</span>
     </div>
-    <div class="text-[40px] font-mono font-light text-text-primary tabular-nums mt-3 leading-none tracking-tight">
-      {formattedTime}<span class="text-lg text-text-tertiary">s</span>
+    <div class="qr-timer">
+      {formattedTime}<span class="qr-timer-unit">s</span>
     </div>
   </div>
 
@@ -57,8 +58,102 @@
   <!-- Cancel -->
   <button
     onclick={cancelPayment}
-    class="text-text-tertiary hover-text-secondary font-mono text-[13px] transition-[color] duration-150 py-3 px-6 min-h-[44px]"
+    class="cancel-btn hover-text-secondary"
   >
     Cancel
   </button>
 </div>
+
+<style>
+  .qr-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px 20px 32px;
+    gap: 32px;
+  }
+
+  .qr-label {
+    color: var(--color-text-tertiary);
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .qr-amount {
+    font-family: var(--font-family-serif);
+    font-size: 48px;
+    color: var(--color-text-primary);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+  }
+
+  .qr-amount-unit {
+    font-family: var(--font-family-mono);
+    font-size: 18px;
+    color: var(--color-accent);
+    font-weight: 400;
+    margin-left: 8px;
+  }
+
+  .qr-card {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+  }
+
+  .qr-glow {
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, rgba(73, 234, 203, 0.1), transparent 50%, rgba(73, 234, 203, 0.05));
+    pointer-events: none;
+  }
+
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+
+  .qr-timer {
+    font-family: var(--font-family-mono);
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--color-text-primary);
+    font-variant-numeric: tabular-nums;
+    margin-top: 12px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .qr-timer-unit {
+    font-size: 18px;
+    color: var(--color-text-tertiary);
+  }
+
+  .cancel-btn {
+    color: var(--color-text-tertiary);
+    font-family: var(--font-family-mono);
+    font-size: 13px;
+    transition: color 0.15s ease;
+    padding: 12px 24px;
+    min-height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+</style>

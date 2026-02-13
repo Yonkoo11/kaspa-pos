@@ -14,6 +14,8 @@
   $: numericValue = parseFloat(displayValue) || 0
   $: kasAmount = inputMode === 'usd' ? usdToKas(numericValue, $kasPrice) : numericValue
   $: usdAmount = inputMode === 'kas' ? kasToUsd(numericValue, $kasPrice) : numericValue
+  $: hasValue = numericValue > 0
+  $: canCharge = kasAmount > 0 && $merchantAddress && !loading
 
   onMount(() => {
     refreshPrice()
@@ -69,7 +71,7 @@
 
 <div class="flex flex-col h-full">
   <!-- Header -->
-  <div class="flex items-center justify-between px-5 pt-5 pb-3">
+  <div class="header-bar">
     <div class="flex items-center gap-0">
       <span class="font-mono text-xs font-semibold uppercase tracking-wide text-text-primary">KASPA</span><span class="font-mono text-xs font-semibold uppercase tracking-wide text-text-tertiary">.</span><span class="font-mono text-xs font-semibold uppercase tracking-wide text-accent">POS</span>
     </div>
@@ -77,7 +79,7 @@
       {#if $payments.length > 0}
         <button
           onclick={onShowHistory}
-          class="text-text-tertiary hover-text-primary transition-[color] duration-150 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
+          class="icon-btn hover-text-primary"
           aria-label="Transaction history"
         >
           <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,7 +89,7 @@
       {/if}
       <button
         onclick={() => { showSettings = !showSettings; if (showSettings) addressInput = $merchantAddress }}
-        class="text-text-tertiary hover-text-primary transition-[color] duration-150 p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center"
+        class="icon-btn hover-text-primary"
         aria-label="Settings"
       >
         <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,8 +121,8 @@
   {/if}
 
   <!-- Amount Display -->
-  <div class="flex-none px-5 pt-4 pb-6">
-    <button onclick={toggleMode} class="text-text-tertiary text-[10px] font-mono uppercase tracking-widest font-medium hover-text-secondary transition-[color] duration-150 mb-2 flex items-center gap-1.5">
+  <div class="amount-zone" class:amount-zone-active={hasValue}>
+    <button onclick={toggleMode} class="currency-toggle hover-text-secondary">
       {inputMode === 'usd' ? 'US DOLLAR' : 'KASPA'}
       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
@@ -128,10 +130,10 @@
     </button>
     <div class="font-mono tabular-nums min-h-[4rem] flex items-baseline justify-end text-right">
       {#if inputMode === 'usd'}
-        <span class="text-text-tertiary text-[48px] font-bold leading-none">$</span><span class="text-text-primary text-[48px] font-bold leading-none">{displayValue || '0'}</span>
+        <span class="amount-prefix">$</span><span class="amount-value">{displayValue || '0'}</span>
       {:else}
-        <span class="text-text-primary text-[48px] font-bold leading-none">{displayValue || '0'}</span>
-        <span class="text-text-tertiary text-lg ml-3 font-normal">KAS</span>
+        <span class="amount-value">{displayValue || '0'}</span>
+        <span class="text-text-tertiary text-lg ml-3 font-normal font-mono">KAS</span>
       {/if}
     </div>
     <div class="text-text-secondary text-xs mt-2 font-mono tabular-nums text-right">
@@ -142,6 +144,8 @@
       {/if}
       <span class="text-text-tertiary ml-2">@ ${$kasPrice.toFixed(4)}</span>
     </div>
+    <!-- Accent underline that grows with value -->
+    <div class="amount-line" class:amount-line-active={hasValue}></div>
   </div>
 
   {#if $error}
@@ -152,15 +156,11 @@
 
   <!-- Keypad -->
   <div class="flex-1 px-5 pb-5 flex flex-col gap-2">
-    <div class="grid grid-cols-3 gap-[2px] flex-1">
+    <div class="keypad">
       {#each keys as key}
         <button
           onclick={() => pressKey(key)}
-          class="bg-surface border border-border rounded-[--radius-sm] min-h-[56px] font-mono transition-[background-color] duration-100 active:bg-border
-            {key === 'CLR'
-              ? 'text-text-secondary text-xs uppercase tracking-widest hover-bg-surface-2'
-              : 'text-text-primary text-lg font-medium hover-bg-surface-2'
-            }"
+          class="key {key === 'CLR' ? 'key-action' : 'key-digit'}"
         >
           {key}
         </button>
@@ -170,7 +170,7 @@
     <!-- Backspace -->
     <button
       onclick={backspace}
-      class="w-full py-3 text-text-tertiary hover-text-secondary transition-[color] duration-150 text-sm font-mono flex items-center justify-center gap-2 min-h-[44px]"
+      class="backspace-btn hover-text-secondary"
     >
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l7-7 11 0v14H10L3 12z" />
@@ -181,12 +181,10 @@
     <!-- Charge Button -->
     <button
       onclick={charge}
-      disabled={kasAmount <= 0 || !$merchantAddress || loading}
-      class="w-full min-h-[56px] rounded-[--radius-sm] font-mono text-sm font-bold uppercase tracking-[0.08em] transition-[opacity] duration-150 active:scale-[0.97]
-        {kasAmount > 0 && $merchantAddress && !loading
-          ? 'bg-accent text-black'
-          : 'bg-surface text-text-tertiary border border-border cursor-not-allowed'
-        }"
+      disabled={!canCharge}
+      class="charge-btn"
+      class:charge-btn-active={canCharge}
+      class:charge-btn-disabled={!canCharge}
     >
       {#if loading}
         CONNECTING...
@@ -200,3 +198,187 @@
     </button>
   </div>
 </div>
+
+<style>
+  /* ---- Header ---- */
+  .header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 12px;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .icon-btn {
+    color: var(--color-text-tertiary);
+    transition: color 0.15s ease;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* ---- Amount Zone ---- */
+  .amount-zone {
+    flex: none;
+    padding: 24px 20px 20px;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .amount-zone-active {
+    background: linear-gradient(180deg, rgba(73, 234, 203, 0.03) 0%, transparent 100%);
+  }
+
+  .currency-toggle {
+    color: var(--color-text-tertiary);
+    font-family: var(--font-family-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+    transition: color 0.15s ease;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .amount-prefix {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-text-tertiary);
+    font-family: var(--font-family-mono);
+  }
+
+  .amount-value {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-text-primary);
+    font-family: var(--font-family-mono);
+  }
+
+  .amount-line {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: var(--color-border);
+    transition: background 0.3s ease;
+  }
+
+  .amount-line-active {
+    background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-border) 100%);
+  }
+
+  /* ---- Keypad ---- */
+  .keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    flex: 1;
+  }
+
+  .key {
+    font-family: var(--font-family-mono);
+    min-height: 56px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: background-color 0.1s ease, border-color 0.1s ease;
+    background: linear-gradient(180deg, var(--color-surface) 0%, rgba(17, 17, 17, 0.8) 100%);
+  }
+
+  .key:active {
+    background: var(--color-border);
+    border-color: var(--color-border-light);
+  }
+
+  .key-digit {
+    color: var(--color-text-primary);
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .key-action {
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  @media (hover: hover) {
+    .key:hover {
+      background: var(--color-surface-2);
+      border-color: var(--color-border-light);
+    }
+  }
+
+  /* ---- Backspace ---- */
+  .backspace-btn {
+    width: 100%;
+    padding: 12px 0;
+    color: var(--color-text-tertiary);
+    transition: color 0.15s ease;
+    font-family: var(--font-family-mono);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* ---- Charge Button ---- */
+  .charge-btn {
+    width: 100%;
+    min-height: 56px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-family-mono);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: transform 0.15s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .charge-btn:active {
+    transform: scale(0.97);
+  }
+
+  .charge-btn-active {
+    background: var(--color-accent);
+    color: #000;
+    box-shadow: 0 0 24px rgba(73, 234, 203, 0.2), 0 0 48px rgba(73, 234, 203, 0.08);
+  }
+
+  .charge-btn-disabled {
+    background: var(--color-surface);
+    color: var(--color-text-tertiary);
+    border: 1px solid var(--color-border);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  @media (hover: hover) {
+    .charge-btn-active:hover {
+      box-shadow: 0 0 32px rgba(73, 234, 203, 0.3), 0 0 64px rgba(73, 234, 203, 0.12);
+    }
+  }
+</style>
